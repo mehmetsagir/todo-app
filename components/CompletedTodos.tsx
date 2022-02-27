@@ -4,15 +4,16 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import { TodoProps } from "./TodoList";
 import Todo from "./Todo";
 import TodoActions from "./TodoActions";
+import { useTodos } from "../hooks/useTodos";
 
-type Props = {
-  data: TodoProps[];
-};
+const CompletedTodos: React.FC = () => {
+  const { todos } = useTodos();
+  const data: TodoProps[] = todos.filter((item) => item.completed);
 
-const CompletedTodos: React.FC<Props> = ({ data }) => {
+  if (!data.length) return null;
   return (
     <SafeAreaView>
-      <Text style={styles.title}>Completed Todos ✔️</Text>
+      <Text style={styles.title}>Completed Todos ✌️</Text>
       <SwipeListView
         data={data}
         renderItem={({ item, index }) => <Todo data={item} key={index} />}
@@ -29,7 +30,7 @@ const CompletedTodos: React.FC<Props> = ({ data }) => {
 
 const styles = StyleSheet.create({
   title: {
-    marginTop: 40,
+    marginTop: 20,
     paddingVertical: 4,
     paddingHorizontal: 18,
   },

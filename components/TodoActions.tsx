@@ -2,36 +2,28 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { View, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { TodoProps } from "./TodoList";
+import { useTodos } from "../hooks/useTodos";
 
 type Props = {
   data: TodoProps;
 };
 
 const TodoActions: React.FC<Props> = ({ data }) => {
-  const { text, completed } = data;
-  const handleCompleted = () => {
-    Alert.alert(`Completed ${text}`);
-  };
-  const handleRemoveCompleted = () => {
-    Alert.alert(`Remove Completed ${text}`);
-  };
-  const handleDeleted = () => {
-    Alert.alert(`Deleted ${text}`);
-  };
+  const { id, completed } = data;
+
+  const { removeTodo, completedToggleTodo } = useTodos();
 
   return (
     <View style={styles.buttonWrapper}>
       <TouchableOpacity
         style={[styles.btn, styles.deleteBtn]}
-        onPress={() => handleDeleted()}
+        onPress={() => removeTodo(id)}
       >
         <Ionicons name="trash-outline" size={24} color="#fff" />
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.btn, styles.completeBtn]}
-        onPress={() =>
-          completed ? handleRemoveCompleted() : handleCompleted()
-        }
+        onPress={() => completedToggleTodo(id)}
       >
         <Ionicons
           name={completed ? "close-outline" : "checkmark-done-outline"}

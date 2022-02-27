@@ -11,31 +11,17 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import Modal from "react-native-modal";
 import { TodoProps } from "./TodoList";
-import uuid from "react-native-uuid";
+import { useTodos } from "../hooks/useTodos";
 
 type Props = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  addTodo: (todo: TodoProps) => void;
 };
 
-const AddTodo: React.FC<Props> = ({ isOpen, setIsOpen, addTodo }) => {
+const AddTodo: React.FC<Props> = ({ isOpen, setIsOpen }) => {
   const [text, setText] = useState<null | string>(null);
 
-  const handleAddTodo = () => {
-    if (!text) {
-      Alert.alert("Please enter a todo.");
-      return;
-    }
-    addTodo({
-      id: uuid.v4().toString(),
-      text,
-      completed: false,
-      createdDate: new Date().toISOString(),
-    });
-    setText(null);
-    setIsOpen(false);
-  };
+  const { addTodo } = useTodos();
 
   return (
     <Modal
@@ -63,7 +49,15 @@ const AddTodo: React.FC<Props> = ({ isOpen, setIsOpen, addTodo }) => {
               />
               <TouchableOpacity
                 style={styles.addButton}
-                onPress={handleAddTodo}
+                onPress={() => {
+                  if (!text) {
+                    Alert.alert("Please enter a todo");
+                    return;
+                  }
+                  addTodo(text);
+                  setIsOpen(false);
+                  setText(null);
+                }}
               >
                 <Ionicons name="add-outline" size={24} color="#fff" />
               </TouchableOpacity>

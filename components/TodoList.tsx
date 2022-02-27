@@ -1,8 +1,8 @@
-import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
-import { StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
+import React from "react";
+import { StyleSheet, SafeAreaView, TouchableOpacity, Text } from "react-native";
 import CompletedTodos from "./CompletedTodos";
 import Todos from "./Todos";
+import { useTodos } from "../hooks/useTodos";
 
 export type TodoProps = {
   id: string;
@@ -11,19 +11,30 @@ export type TodoProps = {
   createdDate: string;
 };
 
-type Props = {
-  todos: TodoProps[];
-};
+const TodoList: React.FC = () => {
+  const { todos } = useTodos();
 
-const TodoList: React.FC<Props> = ({ todos }) => {
+  if (!todos.length)
+    return (
+      <Text style={styles.text}>
+        You didn't add anything to-do for today. 🥺
+      </Text>
+    );
   return (
     <SafeAreaView>
-      <Todos data={todos.filter((item) => !item.completed)} />
-      <CompletedTodos data={todos.filter((item) => item.completed)} />
+      <Todos />
+      <CompletedTodos />
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 16,
+    textAlign: "center",
+    paddingHorizontal: 18,
+    marginTop: 5,
+  },
+});
 
 export default TodoList;
