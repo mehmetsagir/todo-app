@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -6,16 +6,37 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   TextInput,
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Modal from "react-native-modal";
+import { TodoProps } from "./TodoList";
+import uuid from "react-native-uuid";
 
 type Props = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  addTodo: (todo: TodoProps) => void;
 };
 
-const AddTodo: React.FC<Props> = ({ isOpen, setIsOpen }) => {
+const AddTodo: React.FC<Props> = ({ isOpen, setIsOpen, addTodo }) => {
+  const [text, setText] = useState<null | string>(null);
+
+  const handleAddTodo = () => {
+    if (!text) {
+      Alert.alert("Please enter a todo.");
+      return;
+    }
+    addTodo({
+      id: uuid.v4().toString(),
+      text,
+      completed: false,
+      createdDate: new Date().toISOString(),
+    });
+    setText(null);
+    setIsOpen(false);
+  };
+
   return (
     <Modal
       isVisible={isOpen}
@@ -35,8 +56,15 @@ const AddTodo: React.FC<Props> = ({ isOpen, setIsOpen }) => {
           <View style={styles.modal}>
             <Text style={styles.title}>Add Todo</Text>
             <View style={styles.content}>
-              <TextInput style={styles.input} placeholder="Write Todo" />
-              <TouchableOpacity style={styles.addButton}>
+              <TextInput
+                style={styles.input}
+                placeholder="Write Todo"
+                onChangeText={(text) => setText(text)}
+              />
+              <TouchableOpacity
+                style={styles.addButton}
+                onPress={handleAddTodo}
+              >
                 <Ionicons name="add-outline" size={24} color="#fff" />
               </TouchableOpacity>
             </View>

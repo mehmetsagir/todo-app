@@ -11,22 +11,11 @@ export type TodoProps = {
   createdDate: string;
 };
 
-const TodoList = () => {
-  const [todos, setTodos] = useState<TodoProps[]>([
-    {
-      id: "1",
-      text: "Learn React Native",
-      completed: false,
-      createdDate: "2020-01-01",
-    },
-    {
-      id: "2",
-      text: "Learn React Native with Expo",
-      completed: true,
-      createdDate: "2020-01-01",
-    },
-  ]);
+type Props = {
+  todos: TodoProps[];
+};
 
+const TodoList: React.FC<Props> = ({ todos }) => {
   return (
     <SafeAreaView>
       <Todos data={todos.filter((item) => !item.completed)} />
