@@ -8,9 +8,12 @@ type Props = {
 };
 
 const TodoActions: React.FC<Props> = ({ data }) => {
-  const { text } = data;
+  const { text, completed } = data;
   const handleCompleted = () => {
     Alert.alert(`Completed ${text}`);
+  };
+  const handleRemoveCompleted = () => {
+    Alert.alert(`Remove Completed ${text}`);
   };
   const handleDeleted = () => {
     Alert.alert(`Deleted ${text}`);
@@ -26,9 +29,15 @@ const TodoActions: React.FC<Props> = ({ data }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.btn, styles.completeBtn]}
-        onPress={() => handleCompleted()}
+        onPress={() =>
+          completed ? handleRemoveCompleted() : handleCompleted()
+        }
       >
-        <Ionicons name="checkmark-done-outline" size={24} color="#fff" />
+        <Ionicons
+          name={completed ? "close-outline" : "checkmark-done-outline"}
+          size={completed ? 30 : 24}
+          color="#fff"
+        />
       </TouchableOpacity>
     </View>
   );

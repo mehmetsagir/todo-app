@@ -22,7 +22,7 @@ const Todos = () => {
     {
       id: "2",
       text: "Learn React Native with Expo",
-      completed: false,
+      completed: true,
       createdDate: "2020-01-01",
     },
   ]);
