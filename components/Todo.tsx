@@ -1,6 +1,6 @@
 import { Text, TouchableHighlight, StyleSheet } from "react-native";
 import React from "react";
-import { TodoProps } from "./Todos";
+import { TodoProps } from "./TodoList";
 
 type Props = {
   data: TodoProps;

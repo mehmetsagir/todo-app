@@ -1,7 +1,7 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { View, StyleSheet, TouchableOpacity, Alert } from "react-native";
-import { TodoProps } from "./Todos";
+import { TodoProps } from "./TodoList";
 
 type Props = {
   data: TodoProps;
