@@ -1,5 +1,6 @@
+import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
 import CompletedTodos from "./CompletedTodos";
 import Todos from "./Todos";
 
