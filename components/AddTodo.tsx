@@ -1,94 +1,81 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+} from '@gorhom/bottom-sheet';
+import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
+import React, { useMemo, useState } from 'react';
 import {
   Alert,
-  Dimensions,
-  KeyboardAvoidingView,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import Modal from 'react-native-modal';
 
 import { useTodos } from '../hooks/useTodos';
 
 type Props = {
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  bottomSheetModalRef: React.RefObject<BottomSheetModalMethods>;
 };
 
-const windowHeight = Dimensions.get('window').height;
-
-const AddTodo: React.FC<Props> = ({ isOpen, setIsOpen }) => {
-  const [text, setText] = useState<null | string>(null);
+const AddTodo: React.FC<Props> = ({ bottomSheetModalRef }) => {
+  const [text, setText] = useState<string>('');
+  const snapPoints = useMemo(() => ['25%'], []);
 
   const { addTodo } = useTodos();
 
   return (
-    <Modal
-      isVisible={isOpen}
-      animationIn="slideInUp"
-      animationOut="slideOutDown"
-      style={{
-        margin: 0,
-      }}
-    >
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-        <ScrollView>
-          <TouchableOpacity
-            style={styles.container}
-            onPressOut={() => {
-              setIsOpen(false);
-            }}
-          >
-            <TouchableWithoutFeedback>
-              <View style={styles.modal}>
-                <Text style={styles.title}>Add Todo</Text>
-                <View style={styles.content}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Write Todo"
-                    onChangeText={(text) => setText(text)}
-                  />
-                  <TouchableOpacity
-                    style={styles.addButton}
-                    onPress={() => {
-                      if (!text) {
-                        Alert.alert('Please enter a todo');
-                        return;
-                      }
-                      addTodo(text);
-                      setIsOpen(false);
-                      setText(null);
-                    }}
-                  >
-                    <Ionicons name="add-outline" size={24} color="#fff" />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </TouchableWithoutFeedback>
-          </TouchableOpacity>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </Modal>
+    <BottomSheetModalProvider>
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        index={0}
+        snapPoints={snapPoints}
+        style={styles.bottomSheet}
+      >
+        <View style={styles.container}>
+          <Text style={styles.title}>Add Todo</Text>
+          <View style={styles.content}>
+            <TextInput
+              style={styles.input}
+              placeholder="Write Todo"
+              value={String(text)}
+              onChangeText={(text) => setText(text)}
+            />
+            <TouchableOpacity
+              style={styles.addButton}
+              onPress={() => {
+                if (!text) {
+                  Alert.alert('Please enter a todo');
+                  return;
+                }
+                addTodo(text);
+                setText('');
+              }}
+            >
+              <Ionicons name="add-outline" size={24} color="#fff" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </BottomSheetModal>
+    </BottomSheetModalProvider>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    height: windowHeight,
-    justifyContent: 'center',
-    alignItems: 'center',
+  bottomSheet: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -4,
+    },
+    shadowOpacity: 0.14,
+    shadowRadius: 5,
+    elevation: 5,
   },
-  modal: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    backgroundColor: 'white',
+  container: {
+    flex: 1,
     paddingHorizontal: 35,
     paddingBottom: 50,
     paddingTop: 30,
