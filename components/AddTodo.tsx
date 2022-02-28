@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import { Ionicons } from '@expo/vector-icons';
+import React, { useState } from 'react';
 import {
-  Text,
+  Alert,
   StyleSheet,
-  View,
+  Text,
+  TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  TextInput,
-  Alert,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import Modal from "react-native-modal";
-import { TodoProps } from "./TodoList";
-import { useTodos } from "../hooks/useTodos";
+  View,
+} from 'react-native';
+import Modal from 'react-native-modal';
+
+import { useTodos } from '../hooks/useTodos';
 
 type Props = {
   isOpen: boolean;
@@ -51,7 +51,7 @@ const AddTodo: React.FC<Props> = ({ isOpen, setIsOpen }) => {
                 style={styles.addButton}
                 onPress={() => {
                   if (!text) {
-                    Alert.alert("Please enter a todo");
+                    Alert.alert('Please enter a todo');
                     return;
                   }
                   addTodo(text);
@@ -72,32 +72,32 @@ const AddTodo: React.FC<Props> = ({ isOpen, setIsOpen }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   modal: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
-    width: "100%",
-    backgroundColor: "white",
+    width: '100%',
+    backgroundColor: 'white',
     paddingHorizontal: 35,
     paddingBottom: 50,
     paddingTop: 30,
   },
   title: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 10,
   },
   content: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   input: {
     flex: 1,
     height: 40,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     borderWidth: 1,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderRadius: 4,
     paddingHorizontal: 10,
     fontSize: 15,
@@ -106,9 +106,9 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     marginLeft: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#5463FF",
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#5463FF',
     borderRadius: 4,
   },
 });

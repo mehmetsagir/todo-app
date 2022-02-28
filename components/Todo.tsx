@@ -1,6 +1,7 @@
-import { Text, TouchableHighlight, StyleSheet } from "react-native";
-import React from "react";
-import { TodoProps } from "./TodoList";
+import React from 'react';
+import { StyleSheet, Text, TouchableHighlight } from 'react-native';
+
+import { TodoProps } from './TodoList';
 
 type Props = {
   data: TodoProps;
@@ -10,11 +11,7 @@ const Todo: React.FC<Props> = ({ data }) => {
   const { text } = data;
 
   return (
-    <TouchableHighlight
-      style={styles.container}
-      underlayColor="white"
-      onPress={() => console.log(text)}
-    >
+    <TouchableHighlight style={styles.container}>
       <Text style={styles.text}>{text}</Text>
     </TouchableHighlight>
   );
@@ -22,14 +19,14 @@ const Todo: React.FC<Props> = ({ data }) => {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
+    justifyContent: 'center',
     padding: 18,
-    backgroundColor: "white",
-    borderBottomColor: "#ccc",
+    backgroundColor: 'white',
+    borderBottomColor: '#ccc',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   text: {
-    color: "#000",
+    color: '#000',
     fontSize: 18,
   },
 });

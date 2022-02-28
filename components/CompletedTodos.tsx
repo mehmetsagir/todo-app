@@ -1,10 +1,11 @@
-import React from "react";
-import { StyleSheet, SafeAreaView, Text } from "react-native";
-import { SwipeListView } from "react-native-swipe-list-view";
-import { TodoProps } from "./TodoList";
-import Todo from "./Todo";
-import TodoActions from "./TodoActions";
-import { useTodos } from "../hooks/useTodos";
+import React from 'react';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { SwipeListView } from 'react-native-swipe-list-view';
+
+import { useTodos } from '../hooks/useTodos';
+import Todo from './Todo';
+import TodoActions from './TodoActions';
+import { TodoProps } from './TodoList';
 
 const CompletedTodos: React.FC = () => {
   const { todos } = useTodos();

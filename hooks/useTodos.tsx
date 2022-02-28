@@ -1,6 +1,7 @@
-import { createContext, useContext, useState } from "react";
-import { TodoProps } from "../components/TodoList";
-import uuid from "react-native-uuid";
+import { createContext, useContext, useState } from 'react';
+import uuid from 'react-native-uuid';
+
+import { TodoProps } from '../components/TodoList';
 
 type ContextType = {
   todos: TodoProps[];
@@ -31,7 +32,6 @@ export const TodosContextProvider: React.FC = ({ children }) => {
         createdDate: new Date().toISOString(),
       },
     ]);
-    console.log(todos[0]);
   };
 
   const removeTodo = (id: string) => {
