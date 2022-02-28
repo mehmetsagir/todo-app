@@ -49,21 +49,21 @@ yarn web
 <table>
   <tr>
     <td>
-      <img src="./images/image-1.png" width="400px" height="680px" />
+      <img src="./images/image-1.png" width="300px" height="500px" />
     </td>
     <td>
-      <img src="./images/image-2.png" width="400px" height="680px" />
+      <img src="./images/image-2.png" width="300px" height="500px" />
     </td>
     <td>
-      <img src="./images/image-3.png" width="400px" height="680px" />
+      <img src="./images/image-3.png" width="300px" height="500px" />
     </td>
   </tr>
   <tr>
   <td>
-      <img src="./images/image-4.png" width="400px" height="680px" />
+      <img src="./images/image-4.png" width="300px" height="500px" />
   </td>
   <td>
-      <img src="./images/image-5.png" width="400px" height="680px" />
+      <img src="./images/image-5.png" width="300px" height="500px" />
   </td>
   </tr>
 </table>
