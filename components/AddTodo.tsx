@@ -2,6 +2,9 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import {
   Alert,
+  Dimensions,
+  KeyboardAvoidingView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -18,6 +21,8 @@ type Props = {
   setIsOpen: (isOpen: boolean) => void;
 };
 
+const windowHeight = Dimensions.get('window').height;
+
 const AddTodo: React.FC<Props> = ({ isOpen, setIsOpen }) => {
   const [text, setText] = useState<null | string>(null);
 
@@ -32,46 +37,50 @@ const AddTodo: React.FC<Props> = ({ isOpen, setIsOpen }) => {
         margin: 0,
       }}
     >
-      <TouchableOpacity
-        style={styles.container}
-        onPressOut={() => {
-          setIsOpen(false);
-        }}
-      >
-        <TouchableWithoutFeedback>
-          <View style={styles.modal}>
-            <Text style={styles.title}>Add Todo</Text>
-            <View style={styles.content}>
-              <TextInput
-                style={styles.input}
-                placeholder="Write Todo"
-                onChangeText={(text) => setText(text)}
-              />
-              <TouchableOpacity
-                style={styles.addButton}
-                onPress={() => {
-                  if (!text) {
-                    Alert.alert('Please enter a todo');
-                    return;
-                  }
-                  addTodo(text);
-                  setIsOpen(false);
-                  setText(null);
-                }}
-              >
-                <Ionicons name="add-outline" size={24} color="#fff" />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </TouchableOpacity>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        <ScrollView>
+          <TouchableOpacity
+            style={styles.container}
+            onPressOut={() => {
+              setIsOpen(false);
+            }}
+          >
+            <TouchableWithoutFeedback>
+              <View style={styles.modal}>
+                <Text style={styles.title}>Add Todo</Text>
+                <View style={styles.content}>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Write Todo"
+                    onChangeText={(text) => setText(text)}
+                  />
+                  <TouchableOpacity
+                    style={styles.addButton}
+                    onPress={() => {
+                      if (!text) {
+                        Alert.alert('Please enter a todo');
+                        return;
+                      }
+                      addTodo(text);
+                      setIsOpen(false);
+                      setText(null);
+                    }}
+                  >
+                    <Ionicons name="add-outline" size={24} color="#fff" />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+          </TouchableOpacity>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: windowHeight,
     justifyContent: 'center',
     alignItems: 'center',
   },
