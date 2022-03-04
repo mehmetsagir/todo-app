@@ -22,7 +22,7 @@ type Props = {
 
 const AddTodo: React.FC<Props> = ({ bottomSheetModalRef }) => {
   const [text, setText] = useState<string>('');
-  const snapPoints = useMemo(() => ['25%'], []);
+  const snapPoints = useMemo(() => ['55%'], []);
 
   const { addTodo } = useTodos();
 
