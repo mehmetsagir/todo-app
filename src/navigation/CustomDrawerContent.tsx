@@ -32,7 +32,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           active={currentRoute === 'Settings'}
           onPress={() => handleChangeMenu('Settings')}
         >
-          <Text style={styles.menuItem}>About</Text>
+          <Text style={styles.menuItem}>Settings</Text>
         </MenuButton>
       </View>
     </SafeAreaView>

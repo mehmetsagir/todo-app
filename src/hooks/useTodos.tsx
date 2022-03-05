@@ -1,12 +1,18 @@
 import { createContext, useContext, useState } from 'react';
 import uuid from 'react-native-uuid';
 
-import { TodoProps } from '../components/TodoList';
+export type TodoProps = {
+  id: string;
+  title: string;
+  completed: boolean;
+  createdDate: string;
+};
 
 type ContextType = {
   todos: TodoProps[];
   addTodo: (text: string) => void;
   removeTodo: (id: string) => void;
+  editTodo: (id: string, title: string) => void;
   completedToggleTodo: (id: string) => void;
 };
 
@@ -14,23 +20,32 @@ const TodosContext = createContext<ContextType>({
   todos: [],
   addTodo: () => {},
   removeTodo: () => {},
+  editTodo: () => {},
   completedToggleTodo: () => {},
 });
 
 export const TodosContextProvider: React.FC = ({ children }) => {
   const [todos, setTodos] = useState<TodoProps[]>([]);
 
-  const addTodo = (text: string) => {
-    if (!text) return;
+  const editTodo = (id: string, title: string) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, title };
+      }
+      return todo;
+    });
+    setTodos(newTodos);
+  };
 
+  const addTodo = (text: string) => {
     setTodos([
-      ...todos,
       {
         id: uuid.v4().toString(),
-        text,
+        title: text,
         completed: false,
         createdDate: new Date().toISOString(),
       },
+      ...todos,
     ]);
   };
 
@@ -59,6 +74,7 @@ export const TodosContextProvider: React.FC = ({ children }) => {
         todos,
         addTodo,
         removeTodo,
+        editTodo,
         completedToggleTodo,
       }}
     >
