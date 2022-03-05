@@ -1,3 +1,5 @@
+import 'react-native-gesture-handler';
+
 import React from 'react';
 
 import { TodosContextProvider } from './src/hooks/useTodos';
