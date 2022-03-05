@@ -2,9 +2,10 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Checkbox from 'react-native-bouncy-checkbox';
 
-import { TodoProps } from '../hooks/useTodos';
+import { TodoProps, useTodos } from '../hooks/useTodos';
 
 const Todo = ({ item }: { item: TodoProps }) => {
+  const { completedToggleTodo } = useTodos();
   return (
     <View style={styles.container}>
       <Checkbox
@@ -12,7 +13,7 @@ const Todo = ({ item }: { item: TodoProps }) => {
           flex: 1,
         }}
         isChecked={item.completed}
-        onPress={() => (item.completed = !item.completed)}
+        onPress={() => completedToggleTodo(item.id)}
         text={item.title}
         fillColor="#0B5688"
       />
