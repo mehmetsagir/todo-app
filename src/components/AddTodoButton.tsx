@@ -18,8 +18,8 @@ export default AddTodoButton;
 
 const styles = StyleSheet.create({
   container: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,
