@@ -6,7 +6,11 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import { useTodos } from '../hooks/useTodos';
 import Todo from './Todo';
 
-const Todos = () => {
+type Props = {
+  editButtonOnPress: (id: string) => void;
+};
+
+const Todos: React.FC<Props> = ({ editButtonOnPress }) => {
   const { todos: data, removeTodo } = useTodos();
 
   return (
@@ -17,15 +21,21 @@ const Todos = () => {
       renderHiddenItem={({ item }) => (
         <View style={styles.rowBack}>
           <TouchableOpacity
-            style={styles.btn}
+            style={[styles.btn, styles.editBtn]}
+            onPress={() => editButtonOnPress(item.id)}
+          >
+            <Ionicons name="create-outline" size={22} color="#fff"></Ionicons>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.btn, styles.deleteBtn]}
             onPress={() => removeTodo(item.id)}
           >
             <Ionicons name="trash-outline" size={22} color="#fff"></Ionicons>
           </TouchableOpacity>
         </View>
       )}
-      rightOpenValue={-75}
-      stopRightSwipe={-75}
+      rightOpenValue={-150}
+      stopRightSwipe={-150}
     />
   );
 };
@@ -41,13 +51,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    right: 0,
     top: 0,
     bottom: 0,
     width: 75,
+  },
+  deleteBtn: {
+    right: 0,
     backgroundColor: 'red',
     borderTopRightRadius: 3,
     borderBottomRightRadius: 3,
+  },
+  editBtn: {
+    backgroundColor: '#0B5688',
+    right: 75,
   },
 });
 

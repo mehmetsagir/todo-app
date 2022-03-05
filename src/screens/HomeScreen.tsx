@@ -7,7 +7,11 @@ import Todos from '../components/Todos';
 
 const HomeScreen = (props: DrawerContentComponentProps) => (
   <Container image={require('../assets/home.png')}>
-    <Todos />
+    <Todos
+      editButtonOnPress={(id: string) =>
+        props.navigation.navigate('Add', { id })
+      }
+    />
     <AddTodoButton onPress={() => props.navigation.navigate('Add')} />
   </Container>
 );
