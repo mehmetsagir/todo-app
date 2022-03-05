@@ -13,7 +13,7 @@ const Todo = ({ item }: { item: TodoProps }) => {
         }}
         isChecked={item.completed}
         onPress={() => (item.completed = !item.completed)}
-        text={item.title || 'New Todo'}
+        text={item.title}
         fillColor="#0B5688"
       />
     </View>
