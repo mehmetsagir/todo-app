@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 300,
     backgroundColor: '#0B5688',
-    // backgroundColor: '#21C392',
     justifyContent: 'flex-end',
   },
   image: {
