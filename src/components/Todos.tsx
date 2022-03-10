@@ -49,6 +49,7 @@ const Todos: React.FC<Props> = ({ editButtonOnPress }) => {
       )}
       rightOpenValue={-150}
       stopRightSwipe={-150}
+      stopLeftSwipe={100}
     />
   );
 };
