@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
 import { useTodos } from '../hooks/useTodos';
@@ -12,6 +12,19 @@ type Props = {
 
 const Todos: React.FC<Props> = ({ editButtonOnPress }) => {
   const { todos: data, removeTodo } = useTodos();
+
+  if (!data.length)
+    return (
+      <Text
+        style={{
+          textAlign: 'center',
+          paddingTop: 16,
+          fontSize: 16,
+        }}
+      >
+        What's on your list today? 🎉
+      </Text>
+    );
 
   return (
     <SwipeListView
