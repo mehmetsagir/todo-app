@@ -19,7 +19,6 @@ const Todos: React.FC<Props> = ({ editButtonOnPress }) => {
         style={{
           textAlign: 'center',
           paddingTop: 16,
-          fontSize: 16,
         }}
       >
         What's on your list today? 🎉
