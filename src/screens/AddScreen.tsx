@@ -50,6 +50,7 @@ const AddScreen: React.FC<Props> = ({ route, navigation }) => {
         numberOfLines={2}
         value={text}
         onChangeText={(e) => setText(e)}
+        autoFocus
       />
       <TouchableOpacity onPress={() => handleAddTodo()} style={styles.button}>
         <Text style={styles.buttonText}>
